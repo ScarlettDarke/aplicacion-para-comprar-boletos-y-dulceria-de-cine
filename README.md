@@ -14,6 +14,25 @@ Ejemplo: El responsable del Módulo 1 debe crear el paquete cine.usuarios y empe
 | **Módulo 4** | `cine.servicio`              | `PreparaDulceria` (Hilo), `OrdenDeDulceria`, Clases de Combos y Productos (`Palomitas`, `Combo`, etc.). |
 | **Común** | `cine.utilidades`            | `Autenticacion`, `ManejoArchivos` (para I/O genérico), `ExcepcionesPersonalizadas`. |
 
+# Jerarquia de carpetas segun los paquetes
+
+- [ ] `.gitignore`
+- [ ] `README.md`
+- [ ] `src/`
+    - [ ] `main/`
+        - [ ] `java/`
+            - [ ] `cine/`
+                - [ ] `CineApp.java` (Clase principal con el método main)
+                - [ ] `utilidades/`
+                - [ ] `usuarios/` <-- Módulo 1
+                - [ ] `cartelera/` <-- Módulo 2
+                - [ ] `transacciones/` <-- Módulo 3 (Hilos, Lógica de Precios)
+                - [ ] `servicio/` <-- Módulo 4 (Hilos de preparación, Notificación)
+- [ ] `ArchivosAplicacion/` <-- Persistencia (TODOS)
+    - [ ] `cuentas_usuarios.bytes`
+    - [ ] `precios_dulceria.txt`
+    - [ ] `historial_dulceria.log`
+
 # Aplicación para Comprar Boletos y Dulcería de Cine
 
 Este proyecto es el desarrollo de un sistema de software integral para la administración de cartelera, venta de boletos y gestión de pedidos de dulcería para una cadena de cines.
