@@ -65,6 +65,6 @@ El desarrollo se ha dividido en cuatro módulos principales para asegurar una di
 
 1.  Clona el repositorio.
 2.  Trabaja dentro del paquete o directorio asignado a tu módulo.
-3.  [cite_start]Asegúrate de documentar tu código con **Javadoc**.
+3.  Asegúrate de documentar tu código con **Javadoc**.
 4.  Realiza *commits* con mensajes claros que describan la funcionalidad implementada.
 5.  Mantente sincronizado con la rama principal (`main`/`master`) para minimizar conflictos de integración.
