@@ -1,0 +1,45 @@
+# Archivos y Directorios de Compilación de Java
+#########################################
+*.class               # Archivos de clases compiladas
+*.jar                 # Archivos JAR (paquetes binarios)
+*.war                 # Archivos WAR
+*.ear                 # Archivos EAR
+*.zip                 # Archivos ZIP de distribución (si se generan)
+/bin/                 # Directorio de clases compiladas (usado por algunos proyectos)
+/target/              # Directorio de Maven (si se usa)
+/build/               # Directorio de Gradle (si se usa)
+/dist/                # Directorio de distribución (común para NetBeans/ant)
+
+# Archivos Generados por el Sistema
+#########################################
+.DS_Store             # Archivos de metadatos de macOS
+Thumbs.db             # Archivos de miniaturas de Windows
+
+# IDEs (Entornos de Desarrollo Integrado)
+#########################################
+
+# Eclipse/Spring Tools Suite
+.project
+.classpath
+.settings/
+*.log
+
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/   # Archivos de configuración privada de NetBeans
+/nbbuild/
+/dist/
+/cache/
+*.class
+
+# Archivos de Log y Datos Temporales
+#########################################
+*.log
+*.bak
+temp/
+tmp/
