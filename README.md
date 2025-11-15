@@ -1,5 +1,6 @@
 # aplicacion-para-comprar-boletos-y-dulceria-de-cine
 Sistema de gestión y venta de boletos y dulcería para cine, implementado en Java bajo el paradigma de Programación Orientada a Objetos.
+Si van a realizar cambios en un codigo de otro primero avisen
 
 # Aplicación para Comprar Boletos y Dulcería de Cine
 
@@ -7,7 +8,7 @@ Este proyecto es el desarrollo de un sistema de software integral para la admini
 
 ###  Objetivo del Proyecto
 
-Aplicar y consolidar los conocimientos adquiridos en la asignatura de **Programación Orientada a Objetos (POO)** [cite: 10] [cite_start]a través del desarrollo de una aplicación funcional en el lenguaje **Java**.
+Aplicar y consolidar los conocimientos adquiridos en la asignatura de **Programación Orientada a Objetos (POO)** a través del desarrollo de una aplicación funcional en el lenguaje **Java**.
 
 ###  Características Principales
 
