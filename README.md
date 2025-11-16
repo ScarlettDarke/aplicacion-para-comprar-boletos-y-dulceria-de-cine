@@ -1,4 +1,3 @@
-- Sistema de gestión y venta de boletos y dulcería para cine, implementado en Java bajo el paradigma de Programación Orientada a Objetos.
 - Si van a realizar cambios en un codigo de otro primero avisen.
 - La primera persona que haga commit debe subir la estructura de carpetas vacías (dentro de src/main/java/cine/) y crear el archivo CineApp.java (el main).
 Ejemplo: El responsable del Módulo 1 debe crear el paquete cine.usuarios y empezar a definir la clase Persona.java dentro de él.
