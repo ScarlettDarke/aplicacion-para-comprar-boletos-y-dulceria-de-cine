@@ -1,9 +1,8 @@
 package cine;
 
 /**
- *
- * Clase principal
  * Clase principal que maneja la autenticación y registro de usuarios.
+ * Implementa la lógica de la pantalla inicial y menús de acceso.
  * 
  * @author
  */
@@ -16,7 +15,7 @@ public class SistemaAutenticacion {
 
     private static final String ARCHIVO_CLIENTES = "clientes.dat";
     private static final String ARCHIVO_EMPLEADOS = "empleados.dat";
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     
     private List<Cliente> clientes;
     private List<Empleado> empleados;
@@ -63,7 +62,7 @@ public class SistemaAutenticacion {
             System.out.println("3. Salir");
             System.out.print("Seleccione una opción: ");
             
-            String opcion = scanner.nextLine();
+            String opcion = sc.nextLine();
             
             switch (opcion) {
                 case "1":
@@ -90,25 +89,25 @@ public class SistemaAutenticacion {
         while (!datosCorrectos) {
             
             System.out.print("Nombre(s): ");
-            String nombre = scanner.nextLine();
+            String nombre = sc.nextLine();
             
             System.out.print("Apellido Paterno: ");
-            String apellidoPaterno = scanner.nextLine();
+            String apellidoPaterno = sc.nextLine();
             
             System.out.print("Apellido Materno: ");
-            String apellidoMaterno = scanner.nextLine();
+            String apellidoMaterno = sc.nextLine();
             
             System.out.print("Edad: ");
-            int edad = Integer.parseInt(scanner.nextLine());
+            int edad = Integer.parseInt(sc.nextLine());
             
             System.out.print("Nickname: ");
-            String nickname = scanner.nextLine();
+            String nickname = sc.nextLine();
             
             System.out.print("Contraseña: ");
-            String contrasena = scanner.nextLine();
+            String contrasena = sc.nextLine();
             
             System.out.print("Confirmar Contraseña: ");
-            String confirmarContrasena = scanner.nextLine();
+            String confirmarContrasena = sc.nextLine();
             
             if (!contrasena.equals(confirmarContrasena)) {
                 System.out.println("Las contraseñas no coinciden. Intente nuevamente.");
@@ -121,13 +120,13 @@ public class SistemaAutenticacion {
             }
             
             System.out.print("Correo electrónico: ");
-            String correo = scanner.nextLine();
+            String correo = sc.nextLine();
             
             System.out.print("Número de celular: ");
-            String celular = scanner.nextLine();
+            String celular = sc.nextLine();
             
             System.out.print("Número de tarjeta bancaria (16 dígitos): ");
-            String tarjeta = scanner.nextLine();
+            String tarjeta = sc.nextLine();
             
             if (tarjeta.length() != 16 || !tarjeta.matches("\\d+")) {
                 System.out.println("Número de tarjeta inválido. Debe tener 16 dígitos.");
@@ -140,7 +139,7 @@ public class SistemaAutenticacion {
             System.out.println("\n=== DATOS INGRESADOS ===");
             System.out.println(nuevoCliente);
             System.out.print("\n¿Los datos son correctos? (s/n): ");
-            String respuesta = scanner.nextLine();
+            String respuesta = sc.nextLine();
             
             if (respuesta.equalsIgnoreCase("s")) {
                 datosCorrectos = true;
@@ -174,10 +173,10 @@ public class SistemaAutenticacion {
         
         while (true) {
             System.out.print("Nickname: ");
-            String nickname = scanner.nextLine();
+            String nickname = sc.nextLine();
             
             System.out.print("Contraseña: ");
-            String contrasena = scanner.nextLine();
+            String contrasena = sc.nextLine();
             
             for (Empleado empleado : empleados) {
                 if (empleado.validarCredenciales(nickname, contrasena)) {
