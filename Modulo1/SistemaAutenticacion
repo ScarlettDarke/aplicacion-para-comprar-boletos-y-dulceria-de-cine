@@ -1,8 +1,9 @@
 package cine;
 
 /**
+ *
+ * Clase principal
  * Clase principal que maneja la autenticación y registro de usuarios.
- * Implementa la lógica de la pantalla inicial y menús de acceso.
  * 
  * @author
  */
