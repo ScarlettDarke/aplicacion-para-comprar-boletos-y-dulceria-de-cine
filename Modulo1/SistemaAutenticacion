@@ -1,0 +1,221 @@
+package cine;
+
+/**
+ * Clase principal que maneja la autenticación y registro de usuarios.
+ * Implementa la lógica de la pantalla inicial y menús de acceso.
+ * 
+ * @author
+ */
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class SistemaAutenticacion {
+
+    private static final String ARCHIVO_CLIENTES = "clientes.dat";
+    private static final String ARCHIVO_EMPLEADOS = "empleados.dat";
+    private static final Scanner scanner = new Scanner(System.in);
+    
+    private List<Cliente> clientes;
+    private List<Empleado> empleados;
+    
+    public SistemaAutenticacion() {
+        cargarDatos();
+        inicializarAdministradorPorDefecto();
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void cargarDatos() {
+        clientes = ManejadorArchivos.cargarObjetos(ARCHIVO_CLIENTES);
+        empleados = ManejadorArchivos.cargarObjetos(ARCHIVO_EMPLEADOS);
+        
+        if (clientes == null) clientes = new ArrayList<>();
+        if (empleados == null) empleados = new ArrayList<>();
+    }
+    
+    private void inicializarAdministradorPorDefecto() {
+        boolean adminExiste = empleados.stream()
+            .anyMatch(emp -> emp.getNickname().equals("elAdministrador"));
+            
+        if (!adminExiste) {
+            Administrador adminDefault = new Administrador(
+                "Administrador", "Sistema", "PorDefecto",
+                "elAdministrador", "3l4dm1n", "admin@cine.com",
+                "5512345678", "matutino", "entre semana"
+            );
+            empleados.add(adminDefault);
+            guardarDatos();
+        }
+    }
+    
+    private void guardarDatos() {
+        ManejadorArchivos.guardarObjetos(clientes, ARCHIVO_CLIENTES);
+        ManejadorArchivos.guardarObjetos(empleados, ARCHIVO_EMPLEADOS);
+    }
+    
+    public void mostrarPantallaInicial() {
+        while (true) {
+            System.out.println("\n=== CINE APP ===");
+            System.out.println("1. Nuevo registro de cliente");
+            System.out.println("2. Ingreso al sistema");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+            
+            String opcion = scanner.nextLine();
+            
+            switch (opcion) {
+                case "1":
+                    registrarNuevoCliente();
+                    break;
+                case "2":
+                    iniciarSesion();
+                    break;
+                case "3":
+                    System.out.println("¡Hasta pronto!");
+                    return;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+    
+    private void registrarNuevoCliente() {
+        System.out.println("\n=== NUEVO REGISTRO DE CLIENTE ===");
+        
+        boolean datosCorrectos = false;
+        Cliente nuevoCliente = null;
+        
+        while (!datosCorrectos) {
+            
+            System.out.print("Nombre(s): ");
+            String nombre = scanner.nextLine();
+            
+            System.out.print("Apellido Paterno: ");
+            String apellidoPaterno = scanner.nextLine();
+            
+            System.out.print("Apellido Materno: ");
+            String apellidoMaterno = scanner.nextLine();
+            
+            System.out.print("Edad: ");
+            int edad = Integer.parseInt(scanner.nextLine());
+            
+            System.out.print("Nickname: ");
+            String nickname = scanner.nextLine();
+            
+            System.out.print("Contraseña: ");
+            String contrasena = scanner.nextLine();
+            
+            System.out.print("Confirmar Contraseña: ");
+            String confirmarContrasena = scanner.nextLine();
+            
+            if (!contrasena.equals(confirmarContrasena)) {
+                System.out.println("Las contraseñas no coinciden. Intente nuevamente.");
+                continue;
+            }
+            
+            if (nicknameExiste(nickname)) {
+                System.out.println("El nickname ya está en uso. Elija otro.");
+                continue;
+            }
+            
+            System.out.print("Correo electrónico: ");
+            String correo = scanner.nextLine();
+            
+            System.out.print("Número de celular: ");
+            String celular = scanner.nextLine();
+            
+            System.out.print("Número de tarjeta bancaria (16 dígitos): ");
+            String tarjeta = scanner.nextLine();
+            
+            if (tarjeta.length() != 16 || !tarjeta.matches("\\d+")) {
+                System.out.println("Número de tarjeta inválido. Debe tener 16 dígitos.");
+                continue;
+            }
+            
+            nuevoCliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, 
+                                     edad, nickname, contrasena, correo, celular, tarjeta);
+            
+            System.out.println("\n=== DATOS INGRESADOS ===");
+            System.out.println(nuevoCliente);
+            System.out.print("\n¿Los datos son correctos? (s/n): ");
+            String respuesta = scanner.nextLine();
+            
+            if (respuesta.equalsIgnoreCase("s")) {
+                datosCorrectos = true;
+            }
+        }
+        
+        clientes.add(nuevoCliente);
+        guardarDatos();
+        
+        System.out.println("\nRegistro exitoso! Redirigiendo...");
+        try {
+            Thread.sleep(5000); 
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
+    private boolean nicknameExiste(String nickname) {
+
+        boolean existeEnClientes = clientes.stream()
+            .anyMatch(cliente -> cliente.getNickname().equals(nickname));
+        
+        boolean existeEnEmpleados = empleados.stream()
+            .anyMatch(empleado -> empleado.getNickname().equals(nickname));
+            
+        return existeEnClientes || existeEnEmpleados;
+    }
+    
+    private void iniciarSesion() {
+        System.out.println("\n=== INGRESO AL SISTEMA ===");
+        
+        while (true) {
+            System.out.print("Nickname: ");
+            String nickname = scanner.nextLine();
+            
+            System.out.print("Contraseña: ");
+            String contrasena = scanner.nextLine();
+            
+            for (Empleado empleado : empleados) {
+                if (empleado.validarCredenciales(nickname, contrasena)) {
+                    System.out.println("\n¡Bienvenido " + empleado.getNombre() + "!");
+                    redirigirSegunTipoUsuario(empleado);
+                    return;
+                }
+            }
+            
+            for (Cliente cliente : clientes) {
+                if (cliente.validarCredenciales(nickname, contrasena)) {
+                    System.out.println("\n¡Bienvenido " + cliente.getNombre() + "!");
+                    redirigirSegunTipoUsuario(cliente);
+                    return;
+                }
+            }
+            
+            System.out.println("Credenciales incorrectas. Intente nuevamente.");
+        }
+    }
+    
+    private void redirigirSegunTipoUsuario(Persona usuario) {
+        if (usuario instanceof Administrador) {
+            
+            System.out.println("Redirigiendo al menú de Administrador...");
+            
+        } else if (usuario instanceof VendedorDulceria) {
+            
+            System.out.println("Redirigiendo al menú de Vendedor de Dulcería...");
+            
+        } else if (usuario instanceof Cliente) {
+            
+            System.out.println("Redirigiendo al menú de Cliente...");
+            
+        }
+    }
+    
+    public static void main(String[] args) {
+        SistemaAutenticacion sistema = new SistemaAutenticacion();
+        sistema.mostrarPantallaInicial();
+    }
+}
