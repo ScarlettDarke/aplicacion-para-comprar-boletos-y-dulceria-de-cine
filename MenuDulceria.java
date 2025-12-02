@@ -37,8 +37,6 @@ public class MenuDulceria {
                     break;
 
                 case "E":
-                    // SOLUCIÓN: Solo llamamos al método sin parámetros
-                    // El controlador se encarga de todo el proceso
                     controlador.procesarPersonalizada();
                     repetir = false;
                     break;
