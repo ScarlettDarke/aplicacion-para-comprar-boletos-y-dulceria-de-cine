@@ -74,7 +74,7 @@ public class ControladorDulceria {
         finalizarOrden(combo);
     }
 
-    /** Procesar la orden personalizada - VERSIÓN CORREGIDA */
+    /** Procesar la orden personalizada */
     public void procesarPersonalizada() {
         System.out.println("\n=== ORDEN PERSONALIZADA ===");
 
